@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Models\Attachment;
 use App\Models\Post;
@@ -64,8 +65,10 @@ class PostController extends Controller
 
     public function deleteAttachment($id)
     {
-        Attachment::find($id)->delete($id);
-  
+        $attachment = Attachment::find($id);
+        if($attachment->delete()){
+            File::delete(public_path('storage/attachments/'.$attachment->filenames));
+        }
         return response()->json([
             'success' => 'Attachment deleted successfully!'
         ]);
