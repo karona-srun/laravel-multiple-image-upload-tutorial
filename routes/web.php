@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AttachmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,7 @@ Route::get('/', function () {
 Route::resource('posts', PostController::class);
 Route::post('/upload-attachment', [PostController::class,'uploadAttachment']);
 Route::delete('/delete-attachment/{id}', [PostController::class,'deleteAttachment']);
+
+Route::get('/upload', [AttachmentController::class,'index']);
+Route::post('/upload', [AttachmentController::class,'store']);
+Route::post('/file-delete', [AttachmentController::class,'delete']);
